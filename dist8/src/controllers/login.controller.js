@@ -40,8 +40,10 @@ let LoginController = class LoginController {
         var userList = await this.userRepo.find();
         for (var i = 0; i < userList.length; i++) {
             var element = userList[i];
-            if (user.email == element.email && bcrypt.compare(element.password, user.password)) {
-                console.log("USER: " + user.email);
+            let check;
+            check = await bcrypt.compare(user.password, element.password);
+            console.log(user.password);
+            if (user.email == element.email && check) {
                 var jwt = jsonwebtoken_1.sign({
                     user: {
                         id: element.id,

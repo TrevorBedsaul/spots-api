@@ -33,8 +33,9 @@ export class LoginController {
     var userList = await this.userRepo.find();
     for (var i = 0; i < userList.length; i++) {
       var element = userList[i];
-      if (user.email == element.email && bcrypt.compare(element.password, user.password)) {
-        console.log("USER: " + user.email);
+      let check: boolean;
+      check = await bcrypt.compare(user.password, element.password);
+      if (user.email == element.email && check) {
         var jwt = sign(
           {
             user: {
