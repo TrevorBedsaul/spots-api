@@ -5,10 +5,16 @@ const sequence_1 = require("./sequence");
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
+const repository_1 = require("@loopback/repository");
 /* tslint:enable:no-unused-variable */
-class SpotsApiApplication extends boot_1.BootMixin(rest_1.RestApplication) {
+class SpotsApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {
-        super(options);
+        //super(options);
+        super({
+            rest: {
+                port: process.env.PORT || 3000
+            }
+        });
         // Set up the custom sequence
         this.sequence(sequence_1.MySequence);
         this.projectRoot = __dirname;
@@ -21,6 +27,21 @@ class SpotsApiApplication extends boot_1.BootMixin(rest_1.RestApplication) {
                 nested: true,
             },
         };
+        var dataSourceConfig = new repository_1.juggler.DataSource({
+            name: "db",
+            connector: "loopback-connector-mysql",
+            host: process.env.DATABASE_HOST,
+            port: 3306,
+            database: process.env.DATABASE_NAME,
+            user: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD
+        });
+        this.dataSource(dataSourceConfig);
+        // var dataSourceConfig = new juggler.DataSource({
+        //   name: "db",
+        //   connector: "memory"
+        // });
+        // this.dataSource(dataSourceConfig);
     }
     async start() {
         await super.start();

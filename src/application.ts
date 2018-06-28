@@ -1,15 +1,29 @@
-import {ApplicationConfig} from '@loopback/core';
-import {RestApplication, RestServer, RestBindings} from '@loopback/rest';
-import {MySequence} from './sequence';
+import { ApplicationConfig } from '@loopback/core';
+import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+import { MySequence } from './sequence';
 
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
-import {BootMixin, Booter, Binding} from '@loopback/boot';
+import { BootMixin, Booter, Binding } from '@loopback/boot';
+import {
+  Class,
+  Repository,
+  RepositoryMixin,
+  juggler
+} from '@loopback/repository';
 /* tslint:enable:no-unused-variable */
 
-export class SpotsApiApplication extends BootMixin(RestApplication) {
+export class SpotsApiApplication extends BootMixin(
+  RepositoryMixin(RestApplication)
+) {
   constructor(options?: ApplicationConfig) {
-    super(options);
+    //super(options);
+
+    super({
+      rest: {
+        port: process.env.PORT || 3000
+      }
+    });
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -24,6 +38,23 @@ export class SpotsApiApplication extends BootMixin(RestApplication) {
         nested: true,
       },
     };
+    
+    var dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: "loopback-connector-mysql",
+      host: process.env.DATABASE_HOST,
+      port: 3306,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD
+    });
+    this.dataSource(dataSourceConfig);
+
+    // var dataSourceConfig = new juggler.DataSource({
+    //   name: "db",
+    //   connector: "memory"
+    // });
+    // this.dataSource(dataSourceConfig);
   }
 
   async start() {
