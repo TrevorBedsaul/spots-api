@@ -5,5 +5,7 @@ export declare class User extends Entity {
     lastname: string;
     email: string;
     password: string;
+    spot_id: number;
+    there: boolean;
     getId(): number | undefined;
 }

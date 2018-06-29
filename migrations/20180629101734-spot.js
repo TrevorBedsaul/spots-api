@@ -15,38 +15,58 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db, callback) {
-  db.createTable('user', {
+  // db.addForeignKey('iXspots.user', 'iXspots.spot', 'user_spot_foreign_id',
+  // {
+  //   'spot_id': 'id'
+  // },
+  // {
+  //   onDelete: 'CASCADE',
+  //   onUpdate: 'RESTRICT'
+  // }, callback);
+  db.createTable('spot', {
     id: {
       type: 'int',
-      autoIncrement: true,
       primaryKey: true,
-     },
-    firstname: {
-      type: 'string',
-      length: 40,
-      notNull: true
+      autoIncrement: true,
+      unsigned: true
     },
-    lastname: {
-      type: 'string',
-      length: 40,
-      notNull: true
-    },
-    email: {
+    name: {
       type: 'string',
       length: 50,
-      uniqueIndex: true,
       notNull: true
     },
-    password: {
+    going: {
+      type: 'int',
+      notNull: true
+    },
+    there: {
+      type: 'int',
+      notNull: true
+    },
+    address: {
       type: 'string',
       notNull: true
-    }
+    },
+    category: {
+      type: 'string',
+      length: 50,
+      notNull: true
+    },
+    logoUrl: {
+      type: 'string',
+      notNull: true
+    },
+    imageUrl: {
+      type: 'string',
+      notNull: true
+    },
   }, callback);
+
   return null;
 };
 
 exports.down = function (db, callback) {
-  db.dropTable('user');
+  db.dropTable('spot');
   return null;
 };
 
