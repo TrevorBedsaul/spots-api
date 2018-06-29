@@ -15,40 +15,64 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db, callback) {
-  db.createTable('spot', {
+  db.createTable('user', {
     id: {
       type: 'int',
+      autoIncrement: true,
       primaryKey: true,
-      autoIncrement: true
     },
-    name: {
+    firstname: {
+      type: 'string',
+      length: 40,
+      notNull: true
+    },
+    lastname: {
+      type: 'string',
+      length: 40,
+      notNull: true
+    },
+    email: {
       type: 'string',
       length: 50,
+      uniqueIndex: true,
       notNull: true
     },
-    address: {
+    password: {
       type: 'string',
       notNull: true
     },
-    category: {
-      type: 'string',
-      length: 50,
-      notNull: true
+    spot_id: {
+      type: 'int',
+      unsigned: true,
+      foreignKey: {
+        name: 'spot_to_user',
+        table: 'spot',
+        rules: {
+          onDelete: 'RESTRICT',
+          onUpdate: 'RESTRICT'
+        },
+        mapping: 'id'
+      }
     },
-    logoUrl: {
-      type: 'string',
-      notNull: true
-    },
-    imageUrl: {
-      type: 'string',
-      notNull: true
-    },
+    there: {
+      type: 'boolean',
+      defaultValue: false
+    }
   }, callback);
+
+  db.addForeignKey('user', 'spot', 'user_spot_foreign_id',
+    {
+      'spot_id': 'id'
+    },
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'RESTRICT'
+    }, callback);
   return null;
 };
 
 exports.down = function (db, callback) {
-  db.dropTable('spot');
+  db.dropTable('user');
   return null;
 };
 
