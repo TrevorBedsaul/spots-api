@@ -1,18 +1,27 @@
 {
-    "defaultEnv": {"ENV": "NODE_ENV"},
+    "defaultEnv": {
+        "ENV": "NODE_ENV"
+    },
     "prod": {
-        "driver":"mysql",
+        "driver": "mysql",
         "user": "PRODUCTION_USERNAME",
         "password": "PRODUCTION_PASSWORD"
     },
-
     "trevor": {
-        "driver":"mysql",
-        "host":"spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com",
-        "port":"3306",
+        "driver": "mysql",
+        "host": "spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com",
+        "port": "3306",
         "user": "iXspots",
-        "password":"iXperience2018",
-        "database":"iXspots"
+        "password": "iXperience2018",
+        "database": "iXspots"
+    },
+    "jucjeff": {
+        "driver": "mysql",
+        "host": {"ENV": "DATABASE_HOST"},
+        "port": "3306",
+        "user": "iXspots",
+        "password": "iXperience2018",
+        "database": "iXspots"
     },
     "dev": {
         "driver": "mysql",
