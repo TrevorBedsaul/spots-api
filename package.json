@@ -33,10 +33,10 @@
     "prepublishOnly": "npm run test",
     "updateStart": "db-migrate up; npm start",
     "live": "export NODE_ENV=live && export DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && export DATABASE_PASSWORD=iXperience2018 && export DATABASE_USERNAME=iXspots && export DATABASE_NAME=iXspots && db-migrate up && node .",
-    "migrateUp": "NODE_ENV=trevor && db-migrate up",
-    "migrateDown": "NODE_ENV=trevor && DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && DATABASE_NAME=iXspots && DATABASE_USERNAME=iXspots && DATABASE_PASSWORD=iXperience2018 && db-migrate down .",
-    "trevor": "NODE_ENV=trevor && DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && DATABASE_NAME=iXspots && DATABASE_USERNAME=iXspots && DATABASE_PASSWORD=iXperience2018 && npm start",
-    "jucjeff": "NODE_ENV=jucjeff && DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && DATABASE_NAME=iXspots && DATABASE_USERNAME=iXspots && DATABASE_PASSWORD=iXperience2018 && npm start"
+    "migrateUp": "(NODE_ENV=trevor||NODE_ENV=jucjeff) && db-migrate up",
+    "migrateDown": "(NODE_ENV=trevor||NODE_ENV=jucjeff) && DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && DATABASE_NAME=iXspots && DATABASE_USERNAME=iXspots && DATABASE_PASSWORD=iXperience2018 && db-migrate down .",
+    "trevor": "set NODE_ENV=trevor && set DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && set DATABASE_NAME=iXspots && set DATABASE_USERNAME=iXspots && set DATABASE_PASSWORD=iXperience2018 && npm start",
+    "jucjeff": "export NODE_ENV=jucjeff && export DATABASE_HOST=spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com && export DATABASE_NAME=iXspots && export DATABASE_USERNAME=iXspots && export DATABASE_PASSWORD=iXperience2018 && npm start"
   },
   "repository": {
     "type": "git"

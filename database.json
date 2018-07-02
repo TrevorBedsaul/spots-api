@@ -17,7 +17,7 @@
     },
     "jucjeff": {
         "driver": "mysql",
-        "host": {"ENV": "DATABASE_HOST"},
+        "host": "spots-database.ctyya2jixfaz.us-east-2.rds.amazonaws.com",
         "port": "3306",
         "user": "iXspots",
         "password": "iXperience2018",
